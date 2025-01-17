@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from task2.views import index
 from django.views.generic import TemplateView
+from task3.views import shop
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('class/', TemplateView.as_view(template_name='second_task/class_template.html')),
+    path('platform/main_shop/', TemplateView.as_view(template_name='third_task/main.html')),
+    path('platform/shop/', shop),
+    path('platform/basket/', TemplateView.as_view(template_name='third_task/basket.html')),
 ]
