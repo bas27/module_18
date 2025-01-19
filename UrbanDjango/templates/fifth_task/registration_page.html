@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization</title>
+</head>
+<body>
+    <header>
+        <h1>Registration</h1>
+    </header>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="username">"Введите логин"</label>
+        <input type="text" id="username" value="truelogin" maxlength="30" required>
+        
+        <label for="password">"Введите пароль"</label>
+        <input type="text" id="password " value="Super_password" minlength="8" required>
+        
+        <label for="repeat_password">"Повторите пароль"</label>
+        <input type="text" id="repeat_password" value="Super_password" minlength="8" required>
+        
+        <label for="age">"Введите свой возраст"</label>
+        <input type="int" id="age" value="30" maxlength="3" required>
+        
+        <button type="submit">Зарегистрироваться</button>
+        
+    </form>
+</body>
+</html>
