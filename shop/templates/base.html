@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мой интернет-магазин{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в мой интернет-магазин</h1>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Контент страницы -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>© 2024, Интернет-магазин</p>
+    </footer>
+</body>
+</html>
