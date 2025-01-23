@@ -3,12 +3,16 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-<h2>Главная страница</h2>
-<p>Здесь будет каталог товаров.</p>
+<h2>Каталог товаров</h2>
 
-<ul>
-    {% for product in products %}
-    <li>{{ product.name }} — {{ product.price }} руб.</li>
-    {% endfor %}
-</ul>
+{% if products %}
+
+    <ul>
+        {% for product in products %}
+            <li>{{ forloop.counter }}. {{ product.name }} — {{ product.price }} руб.</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Каталог пуст</p>
+{% endif %}
 {% endblock %}

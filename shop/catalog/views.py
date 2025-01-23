@@ -12,7 +12,6 @@ def index(request):
         {"name": "Ноутбук", "price": 55000},
         {"name": "Планшет", "price": 25000},
     ]
-
     return render(request, 'catalog/index.html', {"products": products})
 
 
