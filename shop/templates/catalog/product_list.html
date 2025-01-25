@@ -4,20 +4,19 @@
 
 {% block content %}
 <h2>Список товаров</h2>
-
-<!-- Навигация для фильтрации -->
-<nav>
-    <a href="?">Все</a>
-    <a href="?category=телефоны">Телефоны</a> |
-    <a href="?category=планшеты">Планшеты</a> |
-    <a href="?category=аксессуары">Аксессуары</a> |
-    <a href="?category=ноутбуки">Ноутбуки</a> |
-</nav>
-
-<!-- Вывод списка товаров -->
 <ul>
     {% for product in products %}
-        <li>{{ product.name }} — {{ product.price }} руб.</li>
+        <li>
+            <strong>{{ product.name }}</strong> — {{ product.price }} руб.
+            <br>
+            Категория: {{ product.category.name }}
+            <br>
+            Добавлено: {{ product.created_at }}
+
+        </li>
     {% endfor %}
 </ul>
+{% else %}
+    <p>Каталог пуст</p>
+{% endif %}
 {% endblock %}
