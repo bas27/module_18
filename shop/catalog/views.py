@@ -16,6 +16,11 @@ from .models import Product
 # ]
 
 
+def phones_list(request):
+    products = Product.objects.filter(category__name='Телефоны')
+    return render(request, 'catalog/phones_list.html', {'products': products})
+
+
 def add_product(request):
     if request.method == 'POST':
         # Получаем данные из формы

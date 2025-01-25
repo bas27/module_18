@@ -6,17 +6,14 @@
 <h2>Список товаров</h2>
 <ul>
     {% for product in products %}
-        <li>
-            <strong>{{ product.name }}</strong> — {{ product.price }} руб.
-            <br>
-            Категория: {{ product.category.name }}
-            <br>
-            Добавлено: {{ product.created_at }}
+    <li>
+        <strong>{{ product.name }}</strong> — {{ product.price }} руб.
+        <br>
+        Категория: {{ product.category.name }}
+        <br>
+        Добавлено: {{ product.created_at }}
 
-        </li>
+    </li>
     {% endfor %}
 </ul>
-{% else %}
-    <p>Каталог пуст</p>
-{% endif %}
 {% endblock %}
