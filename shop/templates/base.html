@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,11 @@
     <header>
         <img src="{% static 'catalog/images/logo.png' %}" alt="Логотип магазина" width="100">
         <h1>Добро пожаловать в мой интернет-магазин</h1>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/product_list/">Каталог</a>
+            <a href="/contact/">Контакты</a>
+        </nav>
     </header>
     <main>
         {% block content %}
