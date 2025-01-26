@@ -6,16 +6,23 @@ from django.http import HttpResponse
 from django.views import View
 from .forms import CustomContactForm, FeedbackForm
 from .models import Product, Category
+from django.db.models import F
 
 
-# products = [
-#     {'id': 1, 'name': 'Смартфон Samsung Galaxy', 'category': 'телефоны', 'price': 15000},
-#     {'id': 2, 'name': 'Планшет Apple iPad', 'category': 'планшеты', 'price': 45000},
-#     {'id': 3, 'name': 'Наушники Sony WH-1000XM4', 'category': 'аксессуары', 'price': 25000},
-#     {'id': 4, 'name': 'Ноутбук Dell XPS 13', 'category': 'ноутбуки', 'price': 95000},
-#     {'id': 5, 'name': 'Смарт-часы Xiaomi Mi Band', 'category': 'аксессуары', 'price': 3000},
-# ]
+def disconted_products(request):
+    # Фильруем товары по цене
+    products = Product.objects.filter(price__lt=100000)
+    return render(request,
+                  'catalog/discounted_products.html',
+                  {'products': products})
 
+
+def products_by_category(request, category_name):
+    # Фильтруем товары по названию категории
+    products = Product.objects.filter(category__name=category_name)
+    return render(request,
+                  'catalog/products_by_category.html',
+                  {'category_name': category_name, 'products': products})
 
 
 def feedback_view(request):
