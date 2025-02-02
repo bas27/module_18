@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure--s!)_qffxox$4&&4-sg=a4_-l8@wf6#$8quez(l362b4$egran
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'catalog',
     'rest_framework',
 ]
+INSTALLED_APPS += ['debug_toolbar']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +49,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'shop.urls'
 
@@ -128,4 +132,23 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
 
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }

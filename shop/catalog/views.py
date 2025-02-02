@@ -1,13 +1,13 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
-from .forms import CustomContactForm, FeedbackForm
-from .models import Product, Category
+from .forms import CustomContactForm, FeedbackForm, ReviewForm
+from .models import Product, Category, Review
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serialaizers import ProductSerializer, CategorySerializer
+from .serialaizers import ProductSerializer, CategorySerializer, ReviewSerializer
 
 
 @api_view(['GET'])
@@ -28,6 +28,20 @@ def product_list_api(request):
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+@api_view(['GET', 'POST'])
+def review_list_api(request, product_id):
+    if request.method == 'GET':
+        reviews = Review.objects.filter(product_id=product_id)
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -129,6 +143,27 @@ class IndexView(View):
 
     def post(self, request):
         return HttpResponse("Данные отправлены.")
+
+
+def product_reviews(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    reviews = product.reviews.all()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product  # Связываем отзыв с продуктом
+            review.save()
+            return redirect('product_reviews', product_id=product_id)  # Перенаправляем на ту же страницу
+    else:
+        form = ReviewForm()
+
+    return render(request,
+                  'catalog/product_reviews.html',
+                  {'product': product, 'form': form, 'reviews': reviews})
+
+
+
 
 
 

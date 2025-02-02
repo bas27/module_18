@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import Review
 
 
 class ContactForm(forms.Form):
@@ -29,3 +30,12 @@ class FeedbackForm(forms.Form):
         if not email.endswith('@example.com'):
             raise forms.ValidationError("Email должен оканчиваться на @example.com.")
         return email
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ('author', 'rating', 'comment')  # Поля для заполнения
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 4}),
+        }
