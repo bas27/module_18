@@ -19,6 +19,7 @@ class CustomContactForm(forms.Form):
             raise ValidationError('Email должен быть gmail')
         return email
 
+
 class FeedbackForm(forms.Form):
     name = forms.CharField(max_length=100, label="Имя")
     email = forms.EmailField(label="Email")
